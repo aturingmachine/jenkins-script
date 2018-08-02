@@ -19,4 +19,4 @@ fi
 
 if [ "$logcheck" -eq "1" ]; then
   grep -A 5 generated ~/jenkins/jenkins.log
-fi`
+fi
