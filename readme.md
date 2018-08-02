@@ -6,7 +6,7 @@ Clone this repo to `~/jenkins`
 
 Add an alias to your `.bashrc` or `.bash_profile`
 
-`alias jenkins=~/jenkins/jenkins.sh`
+`alias jenkins="~/jenkins/jenkins.sh"`
 
 ---
 
