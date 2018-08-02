@@ -7,7 +7,7 @@ if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
 fi
 
 
-ps S | grep -v 'grep' | grep -m 1 jar > /dev/null 2>&1
+ps S | grep -v 'grep' | grep -m 1 "\-jar" > /dev/null 2>&1
 
 gec=$?
 
