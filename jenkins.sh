@@ -12,7 +12,7 @@ ps S | grep -v 'grep' | grep -m 1 "\-jar" > /dev/null 2>&1
 
 gec=$?
 
-if [ "$gec" -eq "1" ]; then
+if [ "$gec" -eq 1 ]; then
     echo "Starting Jenkins..."
     ~/jenkins/runJenkinsAsService.sh
     echo "Jenkins Started."
