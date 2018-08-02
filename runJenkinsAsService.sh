@@ -1,5 +1,7 @@
 #!/bin/bash
 
+logcheck=0
+
 echo "*** STARTING JENKINS SERVICE***" >> ~/jenkins/jenkins.log
 
 java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
@@ -16,9 +18,13 @@ fi
 
 grep -m 1 password ~/jenkins/jenkins.log >> /dev/null
 
-logcheck=$?
+if [ "$?" -eq 0 ]; then 
+  sed -i '' '/password/d' ~/jenkins/jenkins.log
+  logcheck=1
+fi
 
 if [ "$logcheck" -eq 0 ]; then
+  echo 'Waiting for initial password...'
   sleep 10
   grep -A 5 generated ~/jenkins/jenkins.log
 fi

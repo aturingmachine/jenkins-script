@@ -8,7 +8,7 @@ fi
 
 sleep 2
 
-ps S | grep -v 'grep' | grep -m 1 "\-jar" > /dev/null 2>&1
+ps S | grep -v 'grep' | grep -m 1 "/usr/bin/java \-jar" > /dev/null 2>&1
 
 gec=$?
 
