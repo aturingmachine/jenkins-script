@@ -26,5 +26,5 @@ fi
 if [ "$logcheck" -eq 0 ]; then
   echo 'Waiting for initial password...'
   sleep 10
-  grep -A 5 generated ~/jenkins/jenkins.log
+  grep -A 5 password ~/jenkins/jenkins.log
 fi
