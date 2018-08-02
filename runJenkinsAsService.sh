@@ -16,7 +16,7 @@ if [ "$?" -eq "0" ]; then
   java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 fi
 
-grep -m 1 password ~/jenkins/jenkins.log >> /dev/null
+grep -m 1 'This may also be found at' ~/jenkins/jenkins.log >> /dev/null
 x=$?
 if [ "$x" -eq 0 ]; then 
   sed -i '' '/password/d' ~/jenkins/jenkins.log
