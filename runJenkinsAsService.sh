@@ -17,8 +17,9 @@ if [ "$?" -eq "0" ]; then
 fi
 
 grep -m 1 password ~/jenkins/jenkins.log >> /dev/null
-
-if [ "$?" -eq 0 ]; then 
+x=$?
+echo $x
+if [ "$x" -eq 0 ]; then 
   sed -i '' '/password/d' ~/jenkins/jenkins.log
   logcheck=1
 fi
