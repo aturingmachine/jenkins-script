@@ -1,5 +1,8 @@
 #!/bin/bash
 
+logcheck=$(grep -wc ~/jenkins/jenkins.log)
+
+
 echo "*** STARTING JENKINS SERVICE***" >> ~/jenkins/jenkins.log
 
 java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
@@ -13,3 +16,7 @@ if [ "$?" -eq "0" ]; then
   echo '' > ~/jenkins/jenkins.log
   java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 fi
+
+if [ "$logcheck" -eq "0" ]; then
+  grep -A 5 generated ~/jenkins/jenkins.log
+fi`
