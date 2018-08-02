@@ -1,7 +1,5 @@
 #!/bin/bash
 
-logcheck=$(wc -l ~/jenkins/jenkins.log | awk '{print $1}')
-
 echo "*** STARTING JENKINS SERVICE***" >> ~/jenkins/jenkins.log
 
 java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
@@ -15,6 +13,9 @@ if [ "$?" -eq "0" ]; then
   echo '' > ~/jenkins/jenkins.log
   java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 fi
+
+logcheck=$(grep -m 1 password ~/jenkins/jenkins.log)
+
 
 if [ "$logcheck" -eq 1 ]; then
   sleep 10
