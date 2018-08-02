@@ -4,6 +4,8 @@
 
 Clone this repo to `~/jenkins`
 
+`git clone git@github.com:aturingmachine/jenkins-script.git ~/jenkins`
+
 Add an alias to your `.bashrc` or `.bash_profile`
 
 `alias jenkins="~/jenkins/jenkins.sh"`
