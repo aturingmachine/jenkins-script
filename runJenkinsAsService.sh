@@ -14,10 +14,11 @@ if [ "$?" -eq "0" ]; then
   java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 fi
 
-logcheck=$(grep -m 1 password ~/jenkins/jenkins.log)
+grep -m 1 password ~/jenkins/jenkins.log >> /dev/null
 
+logcheck=$?
 
-if [ "$?" -eq 0 ]; then
+if [ "$logcheck" -eq 0 ]; then
   sleep 10
   grep -A 5 generated ~/jenkins/jenkins.log
 fi
