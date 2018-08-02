@@ -17,5 +17,6 @@ if [ "$?" -eq "0" ]; then
 fi
 
 if [ "$logcheck" -eq 1 ]; then
+  sleep 10
   grep -A 5 generated ~/jenkins/jenkins.log
 fi
