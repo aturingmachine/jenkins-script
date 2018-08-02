@@ -1,7 +1,6 @@
 #!/bin/bash
 
-logcheck=$(wc -l ~/jenkins/jenkins.log)
-
+logcheck=$(wc -l ~/jenkins/jenkins.log | awk '{print $1}')
 
 echo "*** STARTING JENKINS SERVICE***" >> ~/jenkins/jenkins.log
 
