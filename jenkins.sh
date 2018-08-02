@@ -4,6 +4,9 @@ if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
     echo '' > ~/jenkins/jenkins.log
     echo "Installing Jenkins..."
     curl -L http://mirrors.jenkins.io/war-stable/latest/jenkins.war > ~/jenkins/.jars/jenkins.war
+    sleep 1
+    ~/jenkins/runJenkinsAsService.sh
+    exit 0
 fi
 
 sleep 2
