@@ -6,6 +6,7 @@ if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
     curl -L http://mirrors.jenkins.io/war-stable/latest/jenkins.war > ~/jenkins/.jars/jenkins.war
 fi
 
+sleep 2
 
 ps S | grep -v 'grep' | grep -m 1 "\-jar" > /dev/null 2>&1
 
