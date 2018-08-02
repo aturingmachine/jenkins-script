@@ -17,6 +17,6 @@ if [ "$?" -eq "0" ]; then
   java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 fi
 
-if [ "$logcheck" -eq "1" ]; then
+if [ "$logcheck" -eq 1 ]; then
   grep -A 5 generated ~/jenkins/jenkins.log
 fi
