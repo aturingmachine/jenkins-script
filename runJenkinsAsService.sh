@@ -17,7 +17,7 @@ fi
 logcheck=$(grep -m 1 password ~/jenkins/jenkins.log)
 
 
-if [ "$logcheck" -eq 1 ]; then
+if [ "$logcheck" -eq 0 ]; then
   sleep 10
   grep -A 5 generated ~/jenkins/jenkins.log
 fi
