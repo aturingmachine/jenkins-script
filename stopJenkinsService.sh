@@ -9,6 +9,8 @@ for (( i=1; i<=20; i++)); do
   printf "\b${sp:i%${#sp}:1}"
 done
 
+echo -e "\b "
+
 echo -e "\n"
 
 kill -9 $JENKINSWARPID && echo 'Service Stopped.'

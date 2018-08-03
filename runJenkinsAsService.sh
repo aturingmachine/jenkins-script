@@ -33,6 +33,7 @@ if [ "$logcheck" -eq 1 ]; then
     #printf "%0.s#" $i
     printf "\b${sp:i%${#sp}:1}"
   done
+  echo -e "\b "
   printf " "
   echo -e "\n"  
   grep -A 5 following ~/jenkins/jenkins.log
