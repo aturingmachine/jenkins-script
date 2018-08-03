@@ -1,2 +1,3 @@
 .jars/*.war
 jenkins.log
+.new
