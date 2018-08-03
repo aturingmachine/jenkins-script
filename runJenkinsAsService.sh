@@ -6,7 +6,7 @@ echo "*** STARTING JENKINS SERVICE***" >> ~/jenkins/jenkins.log
 
 java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 
-grep -q corrupt ~/jenkins/jenkins.log
+grep -q corrupt ~/jenkins/jenkins.log >> /dev/null
 
 if [ "$?" -eq "0" ]; then
   echo "Jenkins Failed to start, the .war is corrupt, redownloading..."
@@ -16,15 +16,25 @@ if [ "$?" -eq "0" ]; then
   java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 fi
 
-grep -m 1 'This may also be found at' ~/jenkins/jenkins.log >> /dev/null
+grep -m 1 'NEWJENKINSINSTALL' ~/jenkins/.new >> /dev/null 2>&1
 x=$?
+
 if [ "$x" -eq 0 ]; then 
-  sed -i '' '/password/d' ~/jenkins/jenkins.log
+  sed -i "" '1d' ~/jenkins/.new
   logcheck=1
 fi
 
-if [ "$logcheck" -eq 0 ]; then
+if [ "$logcheck" -eq 1 ]; then
+  sp='/-\|'
   echo 'Waiting for initial password...'
-  sleep 10
-  grep -A 5 password ~/jenkins/jenkins.log
+  
+  for (( i=1; i<=100; i++)); do
+    sleep 0.1
+    #printf "%0.s#" $i
+    printf "\b${sp:i%${#sp}:1}"
+  done
+  printf " "
+  echo -e "\n"  
+  grep -A 5 following ~/jenkins/jenkins.log
+  echo "Enter this password to unlock Jenkins."
 fi
