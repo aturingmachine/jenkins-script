@@ -2,16 +2,14 @@ JENKINSWARPID=$(ps S | grep -v 'grep' | grep -m 1 jenkins.war | awk '{print $1}'
 
 echo '*** STOPPING JENKINS SERVICE ***' >> ~/jenkins/jenkins.log
 
-sp='/-\|*'
+sp='/-\|'
   
-for (( i=1; i<=20; i++)); do
+for (( i=1; i<=10; i++)); do
   sleep 0.1
   printf "\b${sp:i%${#sp}:1}"
 done
 
 echo -e "\b "
-
-echo -e "\n"
 
 kill -9 $JENKINSWARPID && echo 'Service Stopped.'
 

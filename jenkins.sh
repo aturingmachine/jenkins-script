@@ -7,6 +7,21 @@ NC='\033[0m'
 
 new=0
 
+ps S | grep -v 'grep' | grep -m 1 "/usr/bin/java \-jar" > /dev/null 2>&1
+
+startCheck=$?
+
+### They have a jenkins running, we need to kill it and exit clean.
+if [ "$startCheck" -eq 0 ] && [ -f ~/jenkins/.jars/jenkins.war  ]; then 
+  echo -e "${RED}Found a running instance of a Jenkins, stopping it now.${NC}"
+  ~/jenkins/stopJenkinsService.sh
+  exit 0
+elif [ "$startCheck" -eq 0 ]; then 
+  echo -e "${RED}Found a running instance of a Jenkins, stopping it now.${NC}"
+  ~/jenkins/stopJenkinsService.sh
+fi
+
+### There is no jenkins war in _OUR_ directory, download one.
 if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
     echo '' > ~/jenkins/jenkins.log
     echo -e "${BLUE}Dowloading Latest LTS Jenkins build, this may take a minute...\n"
@@ -18,9 +33,7 @@ if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
     echo 'NEWJENKINSINSTALL' > ~/jenkins/.new
 fi
 
-
-sleep 1
-
+### This can probably be reworked and is probs prone to errors galore...
 ps S | grep -v 'grep' | grep -m 1 "/usr/bin/java \-jar" > /dev/null 2>&1
 
 gec=$?
@@ -29,16 +42,13 @@ lsof -i:8080 >> /dev/null
 
 portcheck=$?
 
+### If the port is in use, exit with an error code.
 if [  "$portcheck" -eq 0 ] && [ "$gec" -eq 1 ]; then
   echo -e "${RED}Port 8080 in use, please clear it and try again.{$NC}\n"
   exit 1
 fi
 
-if [ \( "$gec" -eq 1 \) -o \( "$new" -eq 1 \) ]; then
-    echo -e "${BLUE}Starting Jenkins...${NC}\n"
-    ~/jenkins/runJenkinsAsService.sh
-    echo -e "\n${GREEN}Jenkins Started. Navigate to http://localhost:8080 to view.${NC}\n"
-  else
-    echo -e "${GREEN}Stopping Jenkins...${NC}\n"
-    ~/jenkins/stopJenkinsService.sh
-fi
+### If we made it this far, no jenkins is running and the port is open. Time to send it.
+echo -e "${BLUE}Starting Jenkins...${NC}\n"
+~/jenkins/runJenkinsAsService.sh
+echo -e "\n${GREEN}Jenkins Started. Navigate to http://localhost:8080 to view.${NC}\n"
