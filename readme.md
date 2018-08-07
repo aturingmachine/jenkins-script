@@ -17,3 +17,12 @@ Running `jenkins` should then download the latest `.war` and start the jenkins s
 Running it again will stop it.
 
 If the `.war` is corrupt the script should redownload the `.war` and start jenkins.
+
+## Usage
+
+If you have made the alias you can simply run `jenkins`. Otherwise run `~/jenkins/jenkins.sh`
+
+## Issues
+
+If while waiting for an initial password the script hangs for an extended period of time, kill the script
+and check the logs. It is possible the Jenkins server died quietly causing us to be unable to exit a loop.
