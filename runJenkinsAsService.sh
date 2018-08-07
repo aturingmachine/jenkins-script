@@ -35,6 +35,11 @@ if [ "$logcheck" -eq 1 ]; then
     if [ -f ~/.jenkins/secrets/initialAdminPassword ]; then
       looper=1
     fi
+    
+    if [ "$i" -eq 150 ]; then
+      echo "Jenkins failed to start, please check the logs..."
+      exit 1
+    fi
     i=$((i + 1))
   done
 

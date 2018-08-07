@@ -43,4 +43,6 @@ fi
 ### If we made it this far, no jenkins is running and the port is open. Time to send it.
 echo -e "${BLUE}Starting Jenkins...${NC}\n"
 ~/jenkins/runJenkinsAsService.sh
-echo -e "\n${GREEN}Jenkins Started. Navigate to http://localhost:8080 to view.${NC}\n"
+if [ "$?" -eq 0 ]; then
+  echo -e "\n${GREEN}Jenkins Started. Navigate to http://localhost:8080 to view.${NC}\n"
+fi
