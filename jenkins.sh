@@ -7,7 +7,7 @@ NC='\033[0m'
 
 new=0
 
-ps S | grep -v 'grep' | grep -m 1 "jenkins/.jars/jenkins.war" > /dev/null 2>&1
+ps S | grep -v 'grep' | grep -m 1 "\-jar $HOME/jenkins/.jars/jenkins.war" > /dev/null 2>&1
 
 startCheck=$?
 
