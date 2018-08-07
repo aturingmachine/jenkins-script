@@ -9,6 +9,16 @@ ps S | grep -v 'grep' | grep -m 1 "\-jar $HOME/jenkins/.jars/jenkins.war" > /dev
 
 startCheck=$?
 
+if [ "$1" == "-s" ]; then
+  if [ "$startCheck" -eq 0 ]; then
+    echo "There is a Jenkins Server running on http://localhost:8080"
+  else
+    echo "No Jenkins Servers running."
+  fi
+  
+  exit 0
+fi
+
 ### They have a jenkins running, we need to kill it and exit clean.
 if [ "$startCheck" -eq 0 ] && [ -f ~/jenkins/.jars/jenkins.war  ]; then 
   echo -e "${RED}Found a running instance of a Jenkins, stopping it now.${NC}"

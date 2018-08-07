@@ -22,6 +22,10 @@ If the `.war` is corrupt the script should redownload the `.war` and start jenki
 
 If you have made the alias you can simply run `jenkins`. Otherwise run `~/jenkins/jenkins.sh`
 
+Adding the `-s` flag will tell you whether or not a Jenkins Server is running.
+
+> This only checks if the Jenkins build downloaded by this script is running.
+
 ## Issues
 
 If while waiting for an initial password the script hangs for an extended period of time, kill the script
