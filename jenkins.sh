@@ -7,7 +7,7 @@ NC='\033[0m'
 
 new=0
 
-ps S | grep -v 'grep' | grep -m 1 "/usr/bin/java \-jar" > /dev/null 2>&1
+ps S | grep -v 'grep' | grep -m 1 "jenkins/.jars/jenkins.war" > /dev/null 2>&1
 
 startCheck=$?
 
@@ -33,17 +33,12 @@ if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
     echo 'NEWJENKINSINSTALL' > ~/jenkins/.new
 fi
 
-### This can probably be reworked and is probs prone to errors galore...
-ps S | grep -v 'grep' | grep -m 1 "/usr/bin/java \-jar" > /dev/null 2>&1
-
-gec=$?
-
 lsof -i:8080 >> /dev/null
 
 portcheck=$?
 
 ### If the port is in use, exit with an error code.
-if [  "$portcheck" -eq 0 ] && [ "$gec" -eq 1 ]; then
+if [  "$portcheck" -eq 0 ]; then
   echo -e "${RED}Port 8080 in use, please clear it and try again.{$NC}\n"
   exit 1
 fi
