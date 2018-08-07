@@ -37,7 +37,7 @@ fi
 if [ \( "$gec" -eq 1 \) -o \( "$new" -eq 1 \) ]; then
     echo -e "${BLUE}Starting Jenkins...${NC}\n"
     ~/jenkins/runJenkinsAsService.sh
-    echo -e "\n${GREEN}Jenkins Started. Navigate to localhost:8080 to view.${NC}\n"
+    echo -e "\n${GREEN}Jenkins Started. Navigate to http://localhost:8080 to view.${NC}\n"
   else
     echo -e "${GREEN}Stopping Jenkins...${NC}\n"
     ~/jenkins/stopJenkinsService.sh
