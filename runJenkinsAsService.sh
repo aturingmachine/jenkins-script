@@ -43,5 +43,10 @@ if [ "$logcheck" -eq 1 ]; then
 
   echo -e "\b "
   cat ~/.jenkins/secrets/initialAdminPassword
+  which pbcopy >> /dev/null 2>&1
+  if [ "$?" -eq 0 ]; then
+    pbcopy < ~/.jenkins/secrets/initialAdminPassword
+    echo "This password has been copied to your clipboard"
+  fi
   echo "Enter this password to unlock Jenkins."
 fi
