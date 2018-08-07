@@ -5,8 +5,6 @@ BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-new=0
-
 ps S | grep -v 'grep' | grep -m 1 "\-jar $HOME/jenkins/.jars/jenkins.war" > /dev/null 2>&1
 
 startCheck=$?
@@ -28,7 +26,6 @@ if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
     curl -L --progress-bar http://mirrors.jenkins.io/war-stable/latest/jenkins.war > ~/jenkins/.jars/jenkins.war
     echo -e "${NC}"
     sleep 1
-    new=1
     touch ~/jenkins/.new
     echo 'NEWJENKINSINSTALL' > ~/jenkins/.new
 fi

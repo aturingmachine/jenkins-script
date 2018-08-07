@@ -20,11 +20,8 @@ if [ "$?" -eq "0" ]; then
   java -jar ~/jenkins/.jars/jenkins.war >> ~/jenkins/jenkins.log 2>&1 < /dev/null &
 fi
 
-grep -m 1 'NEWJENKINSINSTALL' ~/jenkins/.new >> /dev/null 2>&1
-x=$?
-
-if [ "$x" -eq 0 ]; then 
-  sed -i "" '1d' ~/jenkins/.new
+if [ -f ~/jenkins/.new ]; then 
+  rm ~/jenkins/.new
   logcheck=1
 fi
 
@@ -48,5 +45,6 @@ if [ "$logcheck" -eq 1 ]; then
     pbcopy < ~/.jenkins/secrets/initialAdminPassword
     echo "This password has been copied to your clipboard"
   fi
-  echo "Enter this password to unlock Jenkins."
+  echo "Enter this password to unlock Jenkins. It can also be found at $HOME/.jenkins/secrets/initialAdminPassword"
+  echo "This file will be removed upon unlocking Jenkins and creating a new admin account."
 fi
