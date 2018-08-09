@@ -24,6 +24,7 @@ if [ "$startCheck" -eq 0 ] && [ -f ~/jenkins/.jars/jenkins.war  ]; then
   echo -e "${RED}Found a running instance of a Jenkins, stopping it now.${NC}"
   ~/jenkins/stopJenkinsService.sh
   exit 0
+### There is an instance running and we do not want to exit
 elif [ "$startCheck" -eq 0 ]; then 
   echo -e "${RED}Found a running instance of a Jenkins, stopping it now.${NC}"
   ~/jenkins/stopJenkinsService.sh
@@ -36,17 +37,29 @@ if [ ! -f ~/jenkins/.jars/jenkins.war ]; then
     curl -L --progress-bar http://mirrors.jenkins.io/war-stable/latest/jenkins.war > ~/jenkins/.jars/jenkins.war
     echo -e "${NC}"
     sleep 1
-    touch ~/jenkins/.new
-    echo 'NEWJENKINSINSTALL' > ~/jenkins/.new
+    touch $HOME/jenkins/.new
+    echo 'NEWJENKINSINSTALL' > $HOME/jenkins/.new
 fi
 
+### This is if we have a jenkins build, but it has not been run and created the
+### directory used by jenkins, this is an edge case
+if [ ! -d $HOME/.jenkins ] && [ ! -f $HOME/jenkins/.new ]; then
+  echo -e "${BLUE}No Jenkins data found, running fresh install...${NC}"
+  touch $HOME/jenkins/.new
+fi
+
+### Find out if our port is in use
 lsof -i:8080 >> /dev/null
 
 portcheck=$?
 
 ### If the port is in use, exit with an error code.
 if [  "$portcheck" -eq 0 ]; then
-  echo -e "${RED}Port 8080 in use, please clear it and try again.{$NC}\n"
+  echo -e "${RED}Port 8080 in use, please clear it and try again.${NC}\n"
+  runningPid=$(lsof -i:8080 | sed '1d' | awk '{print $2}')
+  echo -e "${RED}Running application is: "
+  ps -p $runningPid | awk '{print $4}' | sed '1d'
+  echo -e "${NC}"
   exit 1
 fi
 

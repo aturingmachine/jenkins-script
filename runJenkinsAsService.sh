@@ -1,5 +1,7 @@
 #!/bin/bash
 
+GREEN='\033[0;32m'
+NC='\033[0m'
 i=0
 
 logcheck=0
@@ -37,14 +39,15 @@ if [ "$logcheck" -eq 1 ]; then
     fi
     
     if [ "$i" -eq 150 ]; then
-      echo "Jenkins failed to start, please check the logs..."
+      echo -e "Jenkins failed to start, please check the logs..."
       exit 1
     fi
     i=$((i + 1))
   done
 
-  echo -e "\b "
+  echo -e "\b ${GREEN}"
   cat ~/.jenkins/secrets/initialAdminPassword
+  echo -e "${NC}"
   which pbcopy >> /dev/null 2>&1
   if [ "$?" -eq 0 ]; then
     pbcopy < ~/.jenkins/secrets/initialAdminPassword
